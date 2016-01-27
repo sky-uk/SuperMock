@@ -20,6 +20,7 @@
 		AE13EA1099398CF058B597D3AA1C3A19 /* SuperMockResponseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A10D0A4A58BED21B143B790FC09331 /* SuperMockResponseHelper.swift */; };
 		BE27DBA95929F4FDD2845F571FB2C306 /* Pods-SuperMock_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AAE3BBF79153AAF2D16FA3BB6610C497 /* Pods-SuperMock_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D158E85B10C73F8E70F2069A3F4CD612 /* SuperMockNSURLRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354CE231CF343AF568D0441D61C36D1D /* SuperMockNSURLRequestExtension.swift */; };
+		D7A089C11C58E0380059F0A5 /* SuperMockNSURLSessionConfigurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A089BF1C58E0230059F0A5 /* SuperMockNSURLSessionConfigurationExtension.swift */; };
 		E49940150B8DBA6347E67072A15C9C71 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C3EB1D5B2BA2D27CCDF123CF0951B9E6 /* Pods_SuperMock_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuperMock_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D484779065789E148150C372B2E22436 /* Pods-SuperMock_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SuperMock_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		D7A089BF1C58E0230059F0A5 /* SuperMockNSURLSessionConfigurationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperMockNSURLSessionConfigurationExtension.swift; sourceTree = "<group>"; };
 		DB56D87062EB2F0559F5CFC6DEC768C3 /* SuperMock.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SuperMock.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBA0D3BBC7F07BD7455C22086651965A /* SuperMock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SuperMock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA7472B08AF77E2D04268ED993226488 /* SuperMock-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SuperMock-dummy.m"; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				354CE231CF343AF568D0441D61C36D1D /* SuperMockNSURLRequestExtension.swift */,
 				45A10D0A4A58BED21B143B790FC09331 /* SuperMockResponseHelper.swift */,
 				20108985D215E92DEA34FC9B2FBE9F99 /* SuperMockURLProtocol.swift */,
+				D7A089BF1C58E0230059F0A5 /* SuperMockNSURLSessionConfigurationExtension.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -363,7 +366,7 @@
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
@@ -419,6 +422,7 @@
 			files = (
 				3D0161659D07BCD4A8266A9AEB5FB496 /* SuperMock-dummy.m in Sources */,
 				656B9C5B52C6D12AA4F9F08225B3ACD0 /* SuperMock.swift in Sources */,
+				D7A089C11C58E0380059F0A5 /* SuperMockNSURLSessionConfigurationExtension.swift in Sources */,
 				D158E85B10C73F8E70F2069A3F4CD612 /* SuperMockNSURLRequestExtension.swift in Sources */,
 				AE13EA1099398CF058B597D3AA1C3A19 /* SuperMockResponseHelper.swift in Sources */,
 				07F6C541F6A90A132F882F84D005192C /* SuperMockURLProtocol.swift in Sources */,
@@ -671,6 +675,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2968D28169058F6C83DDB749E6DCB423 /* Pods-SuperMock_Example.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -713,6 +718,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D484779065789E148150C372B2E22436 /* Pods-SuperMock_Example.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
