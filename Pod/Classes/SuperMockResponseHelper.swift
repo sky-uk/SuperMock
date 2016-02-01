@@ -28,7 +28,7 @@ class SuperMockResponseHelper: NSObject {
                 sharedHelper.mocksFile = url.URLByDeletingPathExtension!.absoluteString
                 return
             }
-            sharedHelper.mocksFile = ""
+            sharedHelper.mocksFile = "Mocks"
         }
         get {
             return sharedHelper.mocksFile
@@ -36,7 +36,7 @@ class SuperMockResponseHelper: NSObject {
     }
 
     let fileManager = NSFileManager.defaultManager()
-    var mocksFile: String?
+    var mocksFile: String = "Mocks"
     var bundle : NSBundle? {
         didSet {
             loadDefinitions()
@@ -74,7 +74,7 @@ class SuperMockResponseHelper: NSObject {
             fatalError("You must provide a bundle via NSBundle(class:) or NSBundle.mainBundle() before continuing.")
         }
         
-        if let definitionsPath = bundle.pathForResource(mocksFile!, ofType: "plist"),
+        if let definitionsPath = bundle.pathForResource(mocksFile, ofType: "plist"),
             let definitions = NSDictionary(contentsOfFile: definitionsPath) as? Dictionary<String,AnyObject>,
             let mocks = definitions["mocks"] as? Dictionary<String,AnyObject>,
             let mimes = definitions["mimes"] as? Dictionary<String,String> {
@@ -251,7 +251,7 @@ extension SuperMockResponseHelper {
         
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
         let documentsDirectory = paths[0] as? String
-        guard let mockPath = documentsDirectory?.stringByAppendingString("/\(mocksFile!).plist"),
+        guard let mockPath = documentsDirectory?.stringByAppendingString("/\(mocksFile).plist"),
             let bundle = bundle else {
                 return nil
         }
