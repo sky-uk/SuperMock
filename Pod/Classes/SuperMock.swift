@@ -29,21 +29,22 @@ public class SuperMock: NSObject {
         
         SuperMockResponseHelper.mocksFileName  = mocksFile
         SuperMockResponseHelper.bundleForMocks = bundle
+        SuperMockResponseHelper.sharedHelper.mocking = true
     }
     
-    class func beginRecording(bundle: NSBundle?, mocksFile: String? = "Mocks.plist", policy: SuperMockResponseHelper.RecordPolicy) {
+    public class func beginRecording(bundle: NSBundle?, mocksFile: String? = "Mocks.plist", policy: RecordPolicy) {
         
         NSURLProtocol.registerClass(SuperMockRecordingURLProtocol)
         NSURLSessionConfiguration.defaultSessionConfiguration().protocolClasses = [SuperMockRecordingURLProtocol.self]
         NSURLSession.sharedSession().configuration.protocolClasses?.append(SuperMockRecordingURLProtocol)
-
+        
         SuperMockResponseHelper.mocksFileName  = mocksFile
         SuperMockResponseHelper.bundleForMocks = bundle
         SuperMockResponseHelper.sharedHelper.recording = true
-        
+        SuperMockResponseHelper.sharedHelper.recordPolicy = policy
     }
     
-    class func endRecording() {
+    public class func endRecording() {
         NSURLProtocol.unregisterClass(SuperMockRecordingURLProtocol)
         SuperMockResponseHelper.sharedHelper.recording = false
     }
