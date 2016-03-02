@@ -76,9 +76,9 @@ class SuperMockRecordingURLProtocol: NSURLProtocol {
     
     override func startLoading() {
         
-        if let copyRequest = request.mutableCopy() as? NSMutableURLRequest {
+        if let copyRequest = request.mutableCopy() as? NSMutableURLRequest, let requestURL = request.URL {
             
-            NSURLProtocol.setProperty(request.URL!, forKey: "SuperMockRecordingURLProtocol", inRequest: copyRequest)
+            NSURLProtocol.setProperty(requestURL, forKey: "SuperMockRecordingURLProtocol", inRequest: copyRequest)
             connection = NSURLConnection(request: copyRequest, delegate: self)
             
             mutableData = NSMutableData()
