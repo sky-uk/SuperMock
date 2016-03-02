@@ -372,18 +372,23 @@ extension SuperMockResponseHelper {
         
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
         let documentsDirectory = paths[0] as? String
-        guard let mockPath = documentsDirectory?.stringByAppendingString("/\(mocksFile)"),
-            let bundle = bundle else {
+        
+        guard let mockPath =  documentsDirectory?.stringByAppendingString("/\(mocksFile).plist"),
+              let bundle = bundle else {
                 return nil
         }
-        
-        if !NSFileManager.defaultManager().fileExistsAtPath(mockPath),
-            let definitionsPath = bundle.pathForResource("Mocks", ofType: "plist"),
+        guard !NSFileManager.defaultManager().fileExistsAtPath(mockPath) else {
+            return mockPath
+        }
+        if let definitionsPath = bundle.pathForResource("Mocks", ofType: "plist"),
             let definitions = NSMutableDictionary(contentsOfFile: definitionsPath) {
-                definitions.writeToFile(mockPath, atomically: true)
+                NSFileManager.defaultManager().createFileAtPath(mockPath, contents: NSKeyedArchiver.archivedDataWithRootObject(definitions), attributes: nil)
         } else {
-            let mockDictionary = NSDictionary(dictionary:["mimes":[["htm":"text/html"],["html":"text/html"],["json":"application/json"]],["mocks"]:[["DELETE":[:]],["POST":[:]],["PUT":[:]],["GET":[:]]]])
-            mockDictionary.writeToFile(mockPath, atomically: true)
+            let mockDictionary = NSDictionary(dictionary:["mimes":[["htm":"text/html","html":"text/html"],["json":"application/json"]],"mocks":[["DELETE":["http://exampleUrl":["data":"","resonse":""]]],["POST":["http://exampleUrl":["data":"","resonse":""]]],["PUT":["http://exampleUrl":["data":"","resonse":""]]],["GET":["http://exampleUrl":["data":"","resonse":""]]]]])
+            if !mockDictionary.writeToFile(mockPath, atomically: false) {
+                print("Error file not saved: \(mockPath)")
+            }
+            try! NSPropertyListSerialization.dataWithPropertyList(mockDictionary, format: NSPropertyListFormat.XMLFormat_v1_0, options: NSPropertyListWriteOptions.allZeros).writeToFile(mockPath, atomically: true)
         }
         
         return mockPath
