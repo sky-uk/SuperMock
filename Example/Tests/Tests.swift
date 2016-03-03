@@ -104,3 +104,49 @@ class Tests: XCTestCase {
     }
 
 }
+
+// MARK: Test File Helper Class
+extension Tests {
+    
+    func testMockedFilePathReturnFilePathForExistingFile() {
+        
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
+        let documentsDirectory = paths[0] as? String
+        let filePath = documentsDirectory?.stringByAppendingString("/__www.danieleforlani.net_c1d94.txt")
+        let string = "Something to save as data"
+        
+        try! string.writeToFile(filePath!, atomically: true, encoding: NSUTF8StringEncoding)
+        
+        SuperMock.beginRecording(NSBundle(forClass: AppDelegate.self), policy: .Override)
+        
+        XCTAssertTrue(FileHelper.mockedResponseFilePath(NSURL(string: "http://www.danieleforlani.net/c1d94")!) == filePath!, "Expected the right path for existing file")
+        SuperMock.endRecording()
+    }
+    
+    func testMockedFilePathReturnFilePathHeaderForExistingFile() {
+        
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
+        let documentsDirectory = paths[0] as? String
+        let filePath = documentsDirectory?.stringByAppendingString("/__www.danieleforlani.net_c1d94.headers")
+        let string = "Something to save as data"
+        
+        try! string.writeToFile(filePath!, atomically: true, encoding: NSUTF8StringEncoding)
+        
+        
+        XCTAssertTrue(FileHelper.mockedResponseHeadersFilePath(NSURL(string: "http://www.danieleforlani.net/c1d94")!) == filePath!, "Expected the right path for existing file")
+    }
+    
+    func testMockFileOutOfBundle_NoMockFile_CreateMockFile() {
+        
+    }
+    
+    func testMockFileOutOfBundle_CopyMockFile() {
+        
+    }
+    
+    func testMockFileOutOfBundle_Exist_ReturnCorrectpath() {
+        
+    }
+    
+    
+}
