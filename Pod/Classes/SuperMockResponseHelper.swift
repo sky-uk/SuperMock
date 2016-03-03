@@ -162,7 +162,8 @@ class SuperMockResponseHelper: NSObject {
     func responseForMockRequest(request: NSURLRequest!) -> NSData? {
 
         if request.URL?.fileURL == false {
-            fatalError("You should only call this on mocked URLs")
+            //fatalError("You should only call this on mocked URLs")
+            return nil
         }
         
         return mockedResponse(request.URL!)
@@ -320,12 +321,12 @@ extension FileHelper {
         return FileHelper.mockedFilePath(mockedResponseHeadersFileName(url))
     }
     
-    class func mockedResponseFileName(url: NSURL)->String? {
+    class func mockedResponseFileName(url: NSURL)->String {
         
         return  FileHelper.mockedResponseFileName(url, isData: true)
     }
     
-    class func mockedResponseHeadersFileName(url: NSURL)->String? {
+    class func mockedResponseHeadersFileName(url: NSURL)->String {
         
         return  FileHelper.mockedResponseFileName(url, isData: false)
     }
@@ -342,19 +343,23 @@ extension FileHelper {
         guard !NSFileManager.defaultManager().fileExistsAtPath(mockPath) else {
             return mockPath
         }
-        if let definitionsPath = bundle.pathForResource("Mocks", ofType: "plist"),
+        
+        var mockDictionary = NSDictionary(dictionary:["mimes":[["htm":"text/html","html":"text/html"],["json":"application/json"]],"mocks":["DELETE":["http://exampleUrl":["data":"","resonse":""]],"POST":["http://exampleUrl":["data":"","resonse":""]],"PUT":["http://exampleUrl":["data":"","resonse":""]],"GET":["http://exampleUrl":["data":"","resonse":""]]]])
+        
+        if let definitionsPath = bundle.pathForResource(SuperMockResponseHelper.sharedHelper.mocksFile, ofType: "plist"),
             let definitions = NSMutableDictionary(contentsOfFile: definitionsPath) {
-                NSFileManager.defaultManager().createFileAtPath(mockPath, contents: NSKeyedArchiver.archivedDataWithRootObject(definitions), attributes: nil)
-                
-                return mockPath
+                mockDictionary = definitions
         }
         
-        let mockDictionary = NSDictionary(dictionary:["mimes":[["htm":"text/html","html":"text/html"],["json":"application/json"]],"mocks":["DELETE":["http://exampleUrl":["data":"","resonse":""]],"POST":["http://exampleUrl":["data":"","resonse":""]],"PUT":["http://exampleUrl":["data":"","resonse":""]],"GET":["http://exampleUrl":["data":"","resonse":""]]]])
-        if !mockDictionary.writeToFile(mockPath, atomically: false) {
-            print("Error file not saved: \(mockPath)")
+        do {
+            let data = try NSPropertyListSerialization.dataWithPropertyList(mockDictionary, format: NSPropertyListFormat.XMLFormat_v1_0, options: NSPropertyListWriteOptions.allZeros)
+            
+            if !data.writeToFile(mockPath, atomically: true) {
+                return nil
+            }
+        } catch {
+            return nil
         }
-        try! NSPropertyListSerialization.dataWithPropertyList(mockDictionary, format: NSPropertyListFormat.XMLFormat_v1_0, options: NSPropertyListWriteOptions.allZeros).writeToFile(mockPath, atomically: true)
-        
         
         return mockPath
     }
@@ -379,21 +384,20 @@ extension FileHelper {
         }
     }
     
-    private class func mockedFilePath(fileName: String?)->String? {
+    private class func mockedFilePath(fileName: String)->String? {
         
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
         let documentsDirectory = paths[0] as? String
         
-        guard let fileName =  fileName,
-            let filePath = documentsDirectory?.stringByAppendingString("/\(fileName)") else {
+        guard let filePath = documentsDirectory?.stringByAppendingString("/\(fileName)") else {
                 return nil
         }
         
-        print("Mocked response recorded in: \(filePath)")
+        print("Mocked response in: \(filePath)")
         return filePath
     }
     
-    private class func mockedResponseFileName(url: NSURL, isData:Bool)->String? {
+    private class func mockedResponseFileName(url: NSURL, isData:Bool)->String {
         
         guard var urlString = url.absoluteString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) else {
             fatalError("You must provide a request with a valid URL")
@@ -401,18 +405,26 @@ extension FileHelper {
         
         urlString = urlString.stringByReplacingOccurrencesOfString("%2F", withString: "_")
         
+        urlString = urlString.stringByReplacingOccurrencesOfString("http%3A", withString: "")
+        
+        
         let urlStringLengh = urlString.characters.count
         let fromIndex = (urlStringLengh > maxFileLegth) ?maxFileLegth : urlStringLengh
         let fileName = urlString.substringFromIndex(urlString.endIndex.advancedBy(-fromIndex))
         let fileExtension = FileHelper.fileType(SuperMockResponseHelper.sharedHelper.mimeType(url))
-        if isData && SuperMockResponseHelper.sharedHelper.recording {
-            if fileExtension.characters.count > 0 {
-                return  fileName + "." + fileExtension
-            } else {
-                return fileName
+        
+        if SuperMockResponseHelper.sharedHelper.recording {
+            
+            if isData {
+                if fileExtension.characters.count > 0 {
+                    return  fileName + "." + fileExtension
+                } else {
+                    return fileName
+                }
             }
+            return  fileName + ".headers"
         }
-        return  fileName + ".headers"
+        return  fileName
     }
     
 }
