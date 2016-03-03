@@ -162,8 +162,7 @@ class SuperMockResponseHelper: NSObject {
     func responseForMockRequest(request: NSURLRequest!) -> NSData? {
 
         if request.URL?.fileURL == false {
-            //fatalError("You should only call this on mocked URLs")
-            return nil
+            fatalError("You should only call this on mocked URLs")
         }
         
         return mockedResponse(request.URL!)
