@@ -37,6 +37,31 @@ SuperMock.beginMocking(appBundle)
 Your URL requests throughout your existing code base will begin to return Mocks!
 
 
+###RECORD 
+Record the Response and the headers using the recording functionality.
+
+Enter 2 lines of code into your AppDelegate (conditionally for your test target if required) to start to record
+```
+let appBundle = NSBundle(forClass: AppDelegate.self)
+SuperMock.beginRecording(appBundle, policy: .Override)
+```
+If the project bundle has a Mock.plist file, it will copy the file and fill the file with the new recorded urls. 
+If you do not have a Mock.plist file in your project it will create one.
+You can specify the mock.plist file when you begin to record
+```
+SuperMock.beginRecording(appBundle, mocksFile: "NewMock", policy: .Record)
+```
+It is recording the data in the Documents folder of the mobile application, for example in the simulator:
+```
+/Users/USERNAME/Library/Developer/CoreSimulator/Devices/142D41E4-6938-4E36-9B1F-61F5D4D5B801/data/Containers/Data/Application/376E490D-8F99-4A09-AEFD-A52B8FA6C76F/Documents
+```
+
+The log of the recording will help to find the right folder
+
+Your URL requests throughout your existing code base will begin to return Mocks!
+
+
+
 
 ## Requirements
 
