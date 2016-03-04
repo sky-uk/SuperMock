@@ -284,7 +284,12 @@ class SuperMockResponseHelper: NSObject {
         var headersModified : [NSObject:AnyObject] = headers
         headersModified["status"] = "\(response.statusCode)"
         
-        recordResponseHeadersDataForRequest(NSKeyedArchiver.archivedDataWithRootObject(headersModified), request: request)
+        do { let data = try NSPropertyListSerialization.dataWithPropertyList(headersModified, format: NSPropertyListFormat.XMLFormat_v1_0, options: NSPropertyListWriteOptions.allZeros)
+            recordResponseHeadersDataForRequest(data, request: request)
+        } catch {
+            return
+        }
+        
     }
     
     private func mockedHeaderFields(url: NSURL, requestMethod: RequestMethod, mocks: Dictionary<String,AnyObject>)->[String : String]? {
@@ -292,10 +297,7 @@ class SuperMockResponseHelper: NSObject {
         guard let mockedHeaderFieldsURL = mockURLForRequestRestponseURL(url, requestMethod: requestMethod, mocks: mocks) where mockedHeaderFieldsURL != url else {
             return nil
         }
-        guard let mockedHeaderFieldData = NSData(contentsOfURL: mockedHeaderFieldsURL) else {
-            return nil
-        }
-        guard let mockedHeaderFields = NSKeyedUnarchiver.unarchiveObjectWithData(mockedHeaderFieldData) as? [String : String] else {
+        guard let mockedHeaderFields = NSDictionary(contentsOfURL: mockedHeaderFieldsURL) as? [String : String] else {
             return nil
         }
         return mockedHeaderFields
