@@ -10,6 +10,8 @@
 		225140E71C5FDE6A0025A4A9 /* http%3A%2F%2Fapple.com%2F.txt in Resources */ = {isa = PBXBuildFile; fileRef = 225140E41C5FDE6A0025A4A9 /* http%3A%2F%2Fapple.com%2F.txt */; };
 		225140E81C5FDE6A0025A4A9 /* http%3A%2F%2Fapple.com%2F2FDATA.txt in Resources */ = {isa = PBXBuildFile; fileRef = 225140E51C5FDE6A0025A4A9 /* http%3A%2F%2Fapple.com%2F2FDATA.txt */; };
 		225140E91C5FDE6A0025A4A9 /* MocksRecorded.plist in Resources */ = {isa = PBXBuildFile; fileRef = 225140E61C5FDE6A0025A4A9 /* MocksRecorded.plist */; };
+		22E2A64E1C89E520006F7534 /* __mike.kz_.headers in Resources */ = {isa = PBXBuildFile; fileRef = 22E2A64D1C89E520006F7534 /* __mike.kz_.headers */; };
+		22E2A64F1C89F833006F7534 /* __mike.kz_.headers in Resources */ = {isa = PBXBuildFile; fileRef = 22E2A64D1C89E520006F7534 /* __mike.kz_.headers */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -54,6 +56,7 @@
 		225140E41C5FDE6A0025A4A9 /* http%3A%2F%2Fapple.com%2F.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "http%3A%2F%2Fapple.com%2F.txt"; sourceTree = "<group>"; };
 		225140E51C5FDE6A0025A4A9 /* http%3A%2F%2Fapple.com%2F2FDATA.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "http%3A%2F%2Fapple.com%2F2FDATA.txt"; sourceTree = "<group>"; };
 		225140E61C5FDE6A0025A4A9 /* MocksRecorded.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MocksRecorded.plist; sourceTree = "<group>"; };
+		22E2A64D1C89E520006F7534 /* __mike.kz_.headers */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = __mike.kz_.headers; sourceTree = "<group>"; };
 		3ED9E819E95AABB83D324B07 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		4DB89E890B28C1A921A71510 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		53F19A3FC83CA086C3996AA0 /* Pods-SuperMock_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperMock_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SuperMock_Example/Pods-SuperMock_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -110,6 +113,7 @@
 		22419E091C61245800F8A9EF /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				22E2A64D1C89E520006F7534 /* __mike.kz_.headers */,
 				630ACEB51BE75ECC00D18B4E /* Mocks.plist */,
 				630ACEBC1BE78CB600D18B4E /* samplePOST.html */,
 				630ACEB91BE77F1C00D18B4E /* sample.html */,
@@ -345,6 +349,7 @@
 				225140E81C5FDE6A0025A4A9 /* http%3A%2F%2Fapple.com%2F2FDATA.txt in Resources */,
 				630ACEBD1BE78CB600D18B4E /* samplePOST.html in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				22E2A64E1C89E520006F7534 /* __mike.kz_.headers in Resources */,
 				225140E71C5FDE6A0025A4A9 /* http%3A%2F%2Fapple.com%2F.txt in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				630ACEB61BE75ECC00D18B4E /* Mocks.plist in Resources */,
@@ -361,6 +366,7 @@
 				630ACEBE1BE78CB600D18B4E /* samplePOST.html in Resources */,
 				630ACEBB1BE77F1C00D18B4E /* sample.html in Resources */,
 				630ACEB71BE75ECC00D18B4E /* Mocks.plist in Resources */,
+				22E2A64F1C89F833006F7534 /* __mike.kz_.headers in Resources */,
 				630ACED21BE7E39400D18B4E /* buttons.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

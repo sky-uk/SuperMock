@@ -24,6 +24,8 @@
 			</dict>
 			<key>http://mike.kz/</key>
 			<dict>
+				<key>response</key>
+				<string>__mike.kz_.headers</string>
 				<key>data</key>
 				<string>sample.html</string>
 			</dict>
