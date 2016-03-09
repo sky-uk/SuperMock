@@ -306,7 +306,7 @@ class SuperMockResponseHelper: NSObject {
 
 class FileHelper {
     
-    private static let maxFileLegth = 50
+    private static let maxFileLegth = 70
 }
 
 //MARK: public methods
