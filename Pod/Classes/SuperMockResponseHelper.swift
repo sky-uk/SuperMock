@@ -96,8 +96,10 @@ class SuperMockResponseHelper: NSObject {
     func mockRequest(request: NSURLRequest) -> NSURLRequest {
         
         let requestMethod = RequestMethod(rawValue: request.HTTPMethod!)!
-        
-        let mockURL = mockURLForRequestURL(request.URL!, requestMethod: requestMethod, mocks: mocks)
+        guard let url = request.URL else {
+            return request
+        }
+        let mockURL = mockURLForRequestURL(url, requestMethod: requestMethod, mocks: mocks)
         if mockURL == request.URL {
             return request
         }
@@ -124,7 +126,7 @@ class SuperMockResponseHelper: NSObject {
     private func mockURLForRequestURL(url: NSURL, requestMethod: RequestMethod, mocks: Dictionary<String,AnyObject>, isData: Bool) -> NSURL? {
         
         guard let definitionsForMethod = mocks[requestMethod.rawValue] as? Dictionary<String,AnyObject> else {
-            fatalError("Couldn't find definitions for request: \(requestMethod) make sure to create a node for it in the plist")
+            fatalError("Couldn't find definitions for request: \(requestMethod) make sure to create a node for it in the plist and include your plist file into the correct target")
         }
         
         if let responseFiles = definitionsForMethod[url.absoluteString] as? [String:String] {
@@ -345,7 +347,7 @@ extension FileHelper {
             return mockPath
         }
         
-        var mockDictionary = NSDictionary(dictionary:["mimes":[["htm":"text/html","html":"text/html"],["json":"application/json"]],"mocks":["DELETE":["http://exampleUrl":["data":"","resonse":""]],"POST":["http://exampleUrl":["data":"","resonse":""]],"PUT":["http://exampleUrl":["data":"","resonse":""]],"GET":["http://exampleUrl":["data":"","resonse":""]]]])
+        var mockDictionary = NSDictionary(dictionary:["mimes":["htm":"text/html","html":"text/html","json":"application/json"],"mocks":["DELETE":["http://exampleUrl":["data":"","resonse":""]],"POST":["http://exampleUrl":["data":"","resonse":""]],"PUT":["http://exampleUrl":["data":"","resonse":""]],"GET":["http://exampleUrl":["data":"","resonse":""]]]])
         
         if let definitionsPath = bundle.pathForResource(SuperMockResponseHelper.sharedHelper.mocksFile, ofType: "plist"),
             let definitions = NSMutableDictionary(contentsOfFile: definitionsPath) {
