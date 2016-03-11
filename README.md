@@ -23,7 +23,67 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 Define any mocks for your application in
 ```
-Mocks.plist
+Mocks.plist 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>mimes</key>
+	<dict>
+		<key>htm</key>
+		<string>text/html</string>
+		<key>html</key>
+		<string>text/html</string>
+		<key>json</key>
+		<string>application/json</string>
+	</dict>
+	<key>mocks</key>
+	<dict>
+		<key>DELETE</key>
+		<dict/>
+		<key>GET</key>
+		<dict>
+			<key>http://mike.kz/api/layout/buttons/</key>
+			<dict>
+				<key>data</key>
+				<string>buttons.txt</string>
+			</dict>
+			<key>http://mike.kz/</key>
+			<dict>
+				<key>data</key>
+				<string>sample.html</string>
+				<key>response</key>
+				<string>__mike.kz_.headers</string>
+			</dict>
+		</dict>
+		<key>POST</key>
+		<dict>
+			<key>http://mike.kz/</key>
+			<dict>
+				<key>data</key>
+				<string>samplePOST.html</string>
+			</dict>
+		</dict>
+		<key>PUT</key>
+		<dict/>
+	</dict>
+</dict>
+</plist>
+
+
+```
+The plist file will contain a dictionary for each API call with "data" for Response NSData and "response" for the HTTP Response Fields (plist file of http headers).
+```
+Mocks.plist (Extract)
+
+	<dict>
+		<key>data</key>
+		<string>sample.html</string>
+		<key>response</key>
+		<string>__mike.kz_.headers</string>
+	</dict>
+
 ```
 
 Enter 2 lines of code into your AppDelegate (conditionally for your test target if required)
