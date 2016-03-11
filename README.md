@@ -25,14 +25,12 @@ Define any mocks for your application in
 ```
 Mocks.plist
 ```
-[![Mocks plist example](http://mike.kz/wp-content/uploads/2015/11/Screen-Shot-2015-11-02-at-22.32.51.png)
 
 Enter 2 lines of code into your AppDelegate (conditionally for your test target if required)
 ```
 let appBundle = NSBundle(forClass: AppDelegate.self)
 SuperMock.beginMocking(appBundle)
 ```
-[![AppDelegate example](http://mike.kz/wp-content/uploads/2015/11/Screen-Shot-2015-11-02-at-22.34.02.png)
 
 Your URL requests throughout your existing code base will begin to return Mocks!
 
